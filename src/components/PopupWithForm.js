@@ -1,6 +1,7 @@
 import React from 'react';
 
 const PopupWithForm = ({name, title, buttonText, children, isOpen, onClose}) => {
+
   return (
     <div className={`popup popup_type_${name} ${isOpen ? 'popup_opened' : ''}`}>
       <div className="popup__container">
