@@ -18,6 +18,16 @@ const App = () => {
     setSelectedCard({})
   }
 
+  const handleEditAvatarClick = () => {
+    setIsPopupAvatarOpened(true)
+  }
+  const handleEditProfileClick = () => {
+    setIsPopupEditOpened(true)
+  }
+  const handleAddPlaceClick = () => {
+    setIsPopupAddOpened(true)
+  }
+
   const handleClickCard = ({name, link}) => {
     setSelectedCard({name, link})
   }
@@ -26,9 +36,9 @@ const App = () => {
     <>
       <Header/>
       <Main
-        onAddPlace={() => setIsPopupAddOpened(true)}
-        onEditAvatar={() => setIsPopupAvatarOpened(true)}
-        onEditProfile={() => setIsPopupEditOpened(true)}
+        onAddPlace={handleAddPlaceClick}
+        onEditAvatar={handleEditAvatarClick}
+        onEditProfile={handleEditProfileClick}
         handleClickCard={handleClickCard}
       />
       <Footer/>

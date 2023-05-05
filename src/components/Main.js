@@ -56,8 +56,8 @@ const Main = ({onEditProfile, onAddPlace, onEditAvatar, handleClickCard}) => {
           aria-label="Добавить пост"/>
       </section>
       <section className="gallery" aria-label="Посты пользователя">
-        {cards.map(({_id, ...card}) =>
-          <Card key={_id} {...card} onImageClick={handleClickCard}/>)}
+        {cards.map(({_id, ...card}) => (
+          <Card key={_id} {...card} onImageClick={handleClickCard}/>))}
       </section>
     </main>
   );

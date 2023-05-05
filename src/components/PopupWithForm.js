@@ -10,7 +10,6 @@ const PopupWithForm = ({name, title, buttonText, children, isOpen, onClose}) => 
           method="post"
           name={name}
           className="popup__form"
-          noValidate
           autoComplete="off"
         >
           {children}
@@ -21,7 +20,7 @@ const PopupWithForm = ({name, title, buttonText, children, isOpen, onClose}) => 
           className="button popup__close"
           type="button"
           aria-label="Закрыть модальное окно"
-        ></button>
+        />
       </div>
     </div>
   );

@@ -11,9 +11,7 @@ class Api {
       method,
       headers: this._headers
     })
-    return res.ok
-      ? res.json()
-      : Promise.reject(`Ошибка: ${res.status}`)
+    return this._checkResponse(res)
   }
   _fetchWithBody = async (path, method, data) => {
     const res = await fetch(`${this._baseUrl}/${path}`, {
@@ -21,6 +19,9 @@ class Api {
       headers: this._headers,
       body: JSON.stringify(data)
     })
+    return this._checkResponse(res)
+  }
+  _checkResponse = (res) => {
     return res.ok
       ? res.json()
       : Promise.reject(`Ошибка: ${res.status}`)
