@@ -1,19 +1,40 @@
 import React from 'react';
+import {usePopupCloseListeners} from "../hooks";
 
-const PopupWithForm = ({name, title, buttonText, children, isOpen, onClose}) => {
+const PopupWithForm = ({
+  name,
+  title,
+  buttonText,
+  children,
+  isOpen,
+  onClose,
+  onSubmit,
+  isSubmitDisabled
+}) => {
+  const {handleCloseOnOverlay} = usePopupCloseListeners(isOpen, onClose)
 
   return (
-    <div className={`popup popup_type_${name} ${isOpen ? 'popup_opened' : ''}`}>
+    <div
+      onMouseDown={handleCloseOnOverlay}
+      className={`popup popup_type_${name} ${isOpen ? 'popup_opened' : ''}`}
+    >
       <div className="popup__container">
         <h2 className="popup__title">{title}</h2>
         <form
-          method="post"
+          onSubmit={onSubmit}
           name={name}
           className="popup__form"
           autoComplete="off"
         >
           {children}
-          <button className="button popup__submit" type="submit" aria-label={buttonText}>{buttonText}</button>
+          <button
+            disabled={isSubmitDisabled}
+            className="button popup__submit"
+            type="submit"
+            aria-label={buttonText}
+          >
+            {buttonText}
+          </button>
         </form>
         <button
           onClick={onClose}

@@ -1,34 +1,15 @@
 import React from 'react';
 import Card from "./Card";
-import ErrorBlock from "./ErrorBlock";
-import api from "../utils/api";
+import {CurrentUserContext} from "../contexts";
 
-const Main = ({onEditProfile, onAddPlace, onEditAvatar, handleClickCard}) => {
-  const [userName, setUserName] = React.useState('');
-  const [userDescription, setUserDescription] = React.useState('');
-  const [userAvatar, setUserAvatar] = React.useState('');
-  const [cards, setCards] = React.useState([]);
-  const [error, setError] = React.useState('');
-
-  React.useEffect(() => {
-    Promise.all([api.getUserInfo(), api.getInitialCards()])
-      .then(([{name, about, avatar}, cards]) => {
-        setUserName(name)
-        setUserDescription(about)
-        setUserAvatar(avatar)
-        setCards(cards)
-      })
-      .catch(setError)
-  }, []);
-
-  if (error) {
-    return (
-      <ErrorBlock
-        text='Не удалось загрузить приложение'
-        error={error}
-      />
-    )
-  }
+const Main = ({
+  onEditProfile,
+  onAddPlace,
+  onEditAvatar,
+  cards,
+  cardProps
+}) => {
+  const {currentUser: {name, avatar, about}} = React.useContext(CurrentUserContext)
 
   return (
     <main className="main">
@@ -37,17 +18,17 @@ const Main = ({onEditProfile, onAddPlace, onEditAvatar, handleClickCard}) => {
           onClick={onEditAvatar}
           className="profile__avatar-container"
         >
-          <img className="profile__avatar" src={userAvatar} alt="Аватарка"/>
-          <div className="profile__avatar-edit"></div>
+          <img className="profile__avatar" src={avatar} alt="Аватарка"/>
+          <div className="profile__avatar-edit" />
         </div>
         <div className="profile__info">
-          <h1 className="profile__name">{userName}</h1>
+          <h1 className="profile__name">{name}</h1>
           <button
             onClick={onEditProfile}
             className="button profile__edit-button"
             type="button"
             aria-label="Редактировать профиль"/>
-          <p className="profile__description">{userDescription}</p>
+          <p className="profile__description">{about}</p>
         </div>
         <button
           onClick={onAddPlace}
@@ -56,8 +37,13 @@ const Main = ({onEditProfile, onAddPlace, onEditAvatar, handleClickCard}) => {
           aria-label="Добавить пост"/>
       </section>
       <section className="gallery" aria-label="Посты пользователя">
-        {cards.map(({_id, ...card}) => (
-          <Card key={_id} {...card} onImageClick={handleClickCard}/>))}
+        {cards.map(card => (
+          <Card
+            key={card._id}
+            {...card}
+            {...cardProps}
+          />
+        ))}
       </section>
     </main>
   );
