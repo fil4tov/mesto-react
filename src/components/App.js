@@ -31,6 +31,20 @@ const App = () => {
       .catch(setError)
   }, []);
 
+  const handleSubmitPopupEdit = async ({name, about}) => {
+    return await api.updateUserInfo({name, about})
+  }
+
+  const handleSubmitPopupAdd = async ({name, link}) => {
+    return await api.addCard({name, link})
+  }
+  const handleSubmitPopupAvatar = async ({avatar}) => {
+    return await api.updateAvatar({avatar})
+  }
+  const handleSubmitPopupDelete = async (id) => {
+    return await api.deleteCard(id)
+  }
+
   const handleConfirmDeleteCard = React.useCallback((id) => {
     popupDelete.open()
     setDeletingCard(id)
@@ -82,16 +96,19 @@ const App = () => {
       <EditProfilePopup
         isOpen={popupEdit.isOpen}
         onClose={popupEdit.close}
+        onSubmit={handleSubmitPopupEdit}
       />
 
       <EditAvatarPopup
         isOpen={popupAvatar.isOpen}
         onClose={popupAvatar.close}
+        onSubmit={handleSubmitPopupAvatar}
       />
 
       <AddPlacePopup
         isOpen={popupAdd.isOpen}
         onClose={popupAdd.close}
+        onSubmit={handleSubmitPopupAdd}
         cards={cards}
         setCards={setCards}
       />
@@ -99,6 +116,7 @@ const App = () => {
       <ConfirmDeletePopup
         isOpen={popupDelete.isOpen}
         onClose={popupDelete.close}
+        onSubmit={handleSubmitPopupDelete}
         cardId={deletingCard}
         cards={cards}
         setCards={setCards}

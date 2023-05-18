@@ -2,9 +2,8 @@ import React from 'react';
 import PopupWithForm from "./PopupWithForm";
 import {useSubmitButton, useValidation} from "../hooks";
 import {useValidationConfig} from "../utils/consts";
-import api from "../utils/api";
 
-const AddPlacePopup = ({isOpen, onClose, cards, setCards}) => {
+const AddPlacePopup = ({isOpen, onClose, onSubmit, cards, setCards}) => {
   const name = useValidation(useValidationConfig)
   const link = useValidation(useValidationConfig)
   const {
@@ -21,7 +20,7 @@ const AddPlacePopup = ({isOpen, onClose, cards, setCards}) => {
     e.preventDefault()
     setIsLoading(true)
     setButtonText('Создание...')
-    api.addCard({link: link.value, name: name.value})
+    onSubmit({link: link.value, name: name.value})
       .then(newCard => {
         setCards([newCard, ...cards])
         handleClose()

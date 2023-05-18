@@ -3,9 +3,8 @@ import PopupWithForm from "./PopupWithForm";
 import {CurrentUserContext} from "../contexts";
 import {useSubmitButton, useValidation} from "../hooks";
 import {useValidationConfig} from "../utils/consts";
-import api from "../utils/api";
 
-const EditProfilePopup = ({isOpen, onClose}) => {
+const EditProfilePopup = ({isOpen, onClose, onSubmit}) => {
   const {currentUser, setCurrentUser} = React.useContext(CurrentUserContext)
   const name = useValidation(useValidationConfig)
   const about = useValidation(useValidationConfig)
@@ -28,7 +27,7 @@ const EditProfilePopup = ({isOpen, onClose}) => {
     e.preventDefault()
     setIsLoading(true)
     setButtonText('Сохранение...')
-    api.updateUserInfo({name: name.value, about: about.value})
+    onSubmit({name: name.value, about: about.value})
       .then(userInfo => {
         setCurrentUser(userInfo)
         onClose()

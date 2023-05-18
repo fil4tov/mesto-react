@@ -3,9 +3,8 @@ import PopupWithForm from "./PopupWithForm";
 import {CurrentUserContext} from "../contexts";
 import {useSubmitButton, useValidation} from "../hooks";
 import {useValidationConfig} from "../utils/consts";
-import api from "../utils/api";
 
-const EditAvatarPopup = ({isOpen, onClose}) => {
+const EditAvatarPopup = ({isOpen, onClose, onSubmit}) => {
   const {setCurrentUser} = React.useContext(CurrentUserContext)
   const avatar = useValidation(useValidationConfig)
   const {
@@ -22,7 +21,7 @@ const EditAvatarPopup = ({isOpen, onClose}) => {
     e.preventDefault()
     setIsLoading(true)
     setButtonText('Сохранение...')
-    api.updateAvatar({avatar: avatar.value})
+    onSubmit({avatar: avatar.value})
       .then(userInfo => {
         setCurrentUser(userInfo)
         handleClose()

@@ -1,9 +1,8 @@
 import React from 'react';
 import PopupWithForm from "./PopupWithForm";
-import api from "../utils/api";
 import {useSubmitButton} from "../hooks";
 
-const ConfirmDeletePopup = ({isOpen, onClose, cardId, cards, setCards}) => {
+const ConfirmDeletePopup = ({isOpen, onClose, onSubmit, cardId, cards, setCards}) => {
   const {
     setIsLoading,
     buttonText,
@@ -18,7 +17,7 @@ const ConfirmDeletePopup = ({isOpen, onClose, cardId, cards, setCards}) => {
     e.preventDefault()
     setIsLoading(true)
     setButtonText('Удаление...')
-    api.deleteCard(cardId)
+    onSubmit(cardId)
       .then(() => {
         setCards(cards.filter(card => card._id !== cardId))
         onClose()
