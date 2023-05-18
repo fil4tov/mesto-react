@@ -31,7 +31,6 @@ const App = () => {
       .catch(setError)
   }, []);
 
-
   const handleConfirmDeleteCard = React.useCallback((id) => {
     popupDelete.open()
     setDeletingCard(id)

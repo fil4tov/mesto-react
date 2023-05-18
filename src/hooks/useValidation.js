@@ -6,7 +6,7 @@ const useValidation = ({initialValue, inputClass, inputErrorClass}) => {
   const [isValid, setIsValid] = React.useState(false);
   const ref = React.useRef(null)
   const inputClassName = (
-    `${inputClass} ${!!Boolean(error) ? inputErrorClass : ''}`
+    `${inputClass} ${Boolean(error) ? inputErrorClass : ''}`
   )
 
   const onChange = e => {
