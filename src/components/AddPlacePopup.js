@@ -38,6 +38,14 @@ const AddPlacePopup = ({isOpen, onClose, onSubmit, cards, setCards}) => {
     onClose()
   }
 
+  React.useEffect(() => {
+    if (isOpen) {
+      setTimeout(() => {
+        name.ref.current.focus()
+      }, 100)
+    }
+  }, [isOpen]);
+
   return (
     <PopupWithForm
       name='add'

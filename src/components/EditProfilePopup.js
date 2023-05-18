@@ -39,6 +39,14 @@ const EditProfilePopup = ({isOpen, onClose, onSubmit}) => {
       })
   }
 
+  React.useEffect(() => {
+    if (isOpen) {
+      setTimeout(() => {
+        name.ref.current.focus()
+      }, 100)
+    }
+  }, [isOpen]);
+
   return (
     <PopupWithForm
       name='edit'

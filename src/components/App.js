@@ -34,7 +34,6 @@ const App = () => {
   const handleSubmitPopupEdit = async ({name, about}) => {
     return await api.updateUserInfo({name, about})
   }
-
   const handleSubmitPopupAdd = async ({name, link}) => {
     return await api.addCard({name, link})
   }

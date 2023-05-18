@@ -38,6 +38,14 @@ const EditAvatarPopup = ({isOpen, onClose, onSubmit}) => {
     onClose()
   }
 
+  React.useEffect(() => {
+    if (isOpen) {
+      setTimeout(() => {
+        avatar.ref.current.focus()
+      }, 100)
+    }
+  }, [isOpen]);
+
   return (
     <PopupWithForm
       name='avatar'
