@@ -9,7 +9,7 @@ import AddPlacePopup from "./AddPlacePopup";
 import ErrorBlock from "./ErrorBlock";
 import ConfirmDeletePopup from "./ConfirmDeletePopup";
 import {CurrentUserProvider} from "../contexts/";
-import {usePopup} from "../hooks";
+import { usePopup } from "../hooks";
 import api from "../utils/api";
 
 const App = () => {
